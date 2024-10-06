@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 d-flex align-items-center justify-content-center">
+                    <h1>
+                        <a class="navbar-brand" href="#">
+                            Restaurant
+                        </a>
+                    </h1>
+                </div>
+                <div class="col-lg-9 header-bottom-wthree">
+                    <div class="d-md-flex justify-content-lg-end justify-content-center header-right">
+                        <button id="loginButton" type="button" class="btn  wthree-link-bnr bg-transparent text-secondary"
+                                data-toggle="modal" aria-pressed="false" data-target="#exampleModal" style="display: inline;">
+                            login
+                        </button>
+                        <button type="button" id="registerButton" class="btn  ml-2 wthree-link-bnr" data-toggle="modal" data-target="#exampleModal1">register</button>
+                        <div class="right_nav">
+                            <div style="display: flex; align-items: center;">
+                                <!-- Display the username -->
+                                <form id="usernameId" method="post" style="display: inline;">
+                                    <span id="usernameDisplay" class="mr-2">@Session["Username"]</span>
+                                </form>
+
+                                <!-- Logout form -->
+                                <form id="logoutForm" action="@Url.Action("Logout", "Register")" method="post" style="display: inline;">
+                                    <button type="submit" id="logoutButton" class="btn ml-2 wthree-link-bnr">Logout</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var currentPage = window.location.pathname;
+        var loginButton = document.getElementById('loginButton');
+        var registerButton = document.getElementById('registerButton');
+        var logoutButton = document.getElementById('logoutButton');
+
+        // Check if the current page is the login page or not
+        var isLoginPage = currentPage === '/' || currentPage.includes('Home/LoginForm');
+
+        if (isLoginPage) {
+            // Show login and register buttons, hide logout button
+            loginButton.style.display = 'block';
+            registerButton.style.display = 'block';
+            logoutButton.style.display = 'none';
+        } else {
+            // Hide login and register buttons, show logout button
+            loginButton.style.display = 'none';
+            registerButton.style.display = 'none';
+            logoutButton.style.display = 'block';
+        }
+    });
+</script>
+

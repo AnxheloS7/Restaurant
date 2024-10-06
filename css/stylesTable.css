@@ -1,0 +1,66 @@
+﻿@import url('stylestable.css');
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.table-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.table {
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+    .table h2 {
+        margin-bottom: 10px;
+    }
+
+    .table input[type="time"] {
+        margin-bottom: 10px;
+        padding: 5px;
+        font-size: 16px;
+    }
+
+    .table button {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007BFF;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .table button:hover {
+            background-color: #0056b3;
+        }
+
+.user-info {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+
+    .user-info span {
+        margin-right: 10px;
+    }
+
+    .user-info a {
+        color: #007bff;
+        text-decoration: none;
+    }

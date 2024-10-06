@@ -1,0 +1,239 @@
+﻿@using Rest.Helpers;
+@{
+    ViewBag.Title = "Tables";
+    Layout = "~/Views/_LayoutPageLogin.cshtml";
+}
+
+<style>
+    /* Container for the restaurant layout */
+    .restaurant-layout {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* More space between tables */
+        gap: 20px;
+        padding: 20px;
+        background-color: #f7f7f7; /* Light background to create contrast */
+    }
+
+    /* Individual table styling */
+    .table {
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        width: 100%; /* Ensure tables expand to fill available space */
+    }
+
+    /* Table number styling */
+    .table-number {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Capacity and status styling */
+    .table-capacity, .table-status {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    /* Status text styling */
+    .table-status {
+        padding: 5px;
+        border-radius: 5px;
+        display: inline-block;
+        width: 100%; /* Makes the status full-width */
+    }
+
+    /* Available table styling */
+    .table[data-status="available"] .table-status {
+        background-color: #28a745;
+        color: white;
+    }
+
+    /* Reserved table styling */
+    .table[data-status="reserved"] .table-status {
+        background-color: #ffc107;
+        color: white;
+    }
+
+    /* Occupied table styling */
+    .table[data-status="occupied"] .table-status {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    /* Form field styling */
+    input, select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
+    /* Reserve button styling */
+    .reserve-btn {
+        background-color: #007bff; /* Updated to a blue color for consistency */
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Disabled button styling */
+    .reserve-btn:disabled {
+        background-color: gray;
+        color: white;
+    }
+
+    /* Hover effect for tables */
+    .table:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Responsive design */
+    @@media (max-width: 768px) {
+        .table {
+            margin: 10px auto;
+            width: 90%;
+        }
+    }
+</style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Table Reservation</title>
+    <link href="~/cssLogin/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/portfolio.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/font-awesome.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/stylesTable.css">
+</head>
+<body>
+    <header>
+        <div class="user-info"></div>
+    </header>
+
+    @model List<Rest.Models.TableViewModel>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p>No tables available at the moment.</p>
+    }
+    else
+    {
+        <div class="restaurant-layout">
+            @foreach (var table in Model)
+            {
+                <div class="table" data-status="@table.Status">
+                    <div class="table-number">Table @table.TableNumber</div>
+                    <div class="table-capacity">Capacity: @table.Capacity</div>
+                    <div class="table-status" id="status-@table.TableNumber">Status: @table.Status</div>
+
+                    <!-- Reservation form -->
+                    @if (table.Status == "Free")
+                    {
+                        <form class="reservationForm" method="post" id="reservationForm-@table.TableNumber" data-table-id="@table.TableNumber">
+                            <input type="hidden" name="tableId" value="@table.TableNumber" />
+                            <!-- Form fields remain the same -->
+                            <label for="numPeople">Number of People:</label>
+                            <select id="numPeople-@table.TableNumber" name="numPeople" required>
+                                <option value="1">1 Person</option>
+                                <option value="2">2 People</option>
+                                <option value="3">3 People</option>
+                                <option value="4">4 People</option>
+                            </select>
+
+                            <label for="reservationDate">Date:</label>
+                            <input type="date" id="reservationDate-@table.TableNumber" name="reservationDate" required />
+
+                            <label for="reservationTime">Time:</label>
+                            <input type="time" id="reservationTime-@table.TableNumber" name="reservationTime" required />
+
+                            <button type="submit" class="reserve-btn" id="btn-@table.TableNumber">
+                                Reserve
+                            </button>
+                        </form>
+
+                    }
+                    else
+                    {
+                        <button class="reserve-btn" id="btn-@table.TableNumber" disabled>
+                            @table.Status
+                        </button>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    <script src="~/js/scriptTable.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            // Attach an event handler for the form submission
+            $('.reservationForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the form from submitting the traditional way
+
+                // Extract table ID and form data
+                var form = $(this);
+                var tableId = form.data('table-id');
+                var formData = form.serialize(); // Serialize form data for AJAX request
+                console.log(formData)
+                // Send the AJAX request
+                $.ajax({
+                    url: '/Reservation/AddReservation', // The URL to send the request to
+                    type: 'POST',
+                    data: formData, // The form data
+                    success: function (response) {
+                        if (response.success) {
+                            // Show a success notification
+                            toastr.success(response.message);
+
+                            // Update the table's status on the page to "Pending" or "Reserved"
+                            var button = $('#btn-' + tableId);
+                            var statusElement = $('#status-' + tableId);
+                            var reservationTime = $('#reservationDate-' + tableId);
+                            var reservationDate = $('#reservationTime-' + tableId);
+                            var numOfPeople = $('#numPeople-' + tableId);
+
+                            numOfPeople.attr('disabled', true);
+                            reservationDate.attr('disabled', true);
+                            reservationTime.attr('disabled', true);
+                            button.text('Pending'); // Change button text to Pending
+                            button.attr('disabled', true); // Disable the button
+                            button.css('background-color', 'gray'); // Optional: Change the background color
+                            statusElement.text('Status: Pending'); // Update the status
+                        } else {
+                            // Show an error notification
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error('An unexpected error occurred while making the reservation.');
+                    }
+                });
+            });
+        });
+
+
+    </script>
+</body>
+</html>

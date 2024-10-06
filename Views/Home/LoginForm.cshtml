@@ -1,0 +1,344 @@
+﻿
+@{
+    ViewBag.Title = "LoginForm";
+    Layout = "~/Views/_LayoutPageLogin.cshtml";
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <title>Cafe Restaurant Hotel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="keywords" content="Cafe Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+	SmartPhone Compatible web template, free WebDesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
+    <script>
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link href="~/cssLogin/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/portfolio.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/font-awesome.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+</head>
+
+<div class="contact-wthree pt-lg-5" id="contact">
+    <div class="container pt-md-5 pt-4">
+        <div class="text-center">
+            <h4 class="w3pvt-title">Want to enjoy the best traditional food in Gjirokastra</h4>
+        </div>
+        <div class="">
+            <div class="col-12">
+                <div class="register-top1">
+                    <form action="#" method="post" class="register-wthree">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>
+                                        First name
+                                    </label>
+                                    <input class="form-control" type="text" placeholder="Johnson" name="email"
+                                           required="">
+                                </div>
+                                <div class="col-md-6 mt-md-0 mt-4">
+                                    <label>
+                                        Last name
+                                    </label>
+                                    <input class="form-control" type="text" placeholder="Kc" name="name" required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>
+                                        Mobile
+                                    </label>
+                                    <input class="form-control" type="text" placeholder="xxxx xxxxx" name="email"
+                                           required="">
+                                </div>
+                                <div class="col-md-6 mt-md-0 mt-4">
+                                    <label>
+                                        Email
+                                    </label>
+                                    <input class="form-control" type="email" placeholder="example@email.com" name="email"
+                                           required="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>
+                                        Your message
+                                    </label>
+                                    <textarea placeholder="Type your message here" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-w3layouts btn-block  bg-theme text-white w-100 font-weight-bold text-uppercase">Book now</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 footer-logo mb-lg-0 mb-4 text-lg-left text-center">
+                <h2>
+                </h2>
+            </div>
+            <div class="col-lg-6 cpy-right text-lg-right text-center">
+                <p>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- //footer -->
+<!-- Login modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-theme2">
+                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Username</label>
+                        <input type="text" class="form-control border" placeholder="Username" name="Name" id="recipient-name"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-form-label">Password</label>
+                        <input type="password" class="form-control border" placeholder="****" name="Password" id="password"
+                               required="">
+                    </div>
+                    <div id="loginError" style="color: red; display: none;"></div>
+                    <br>
+                    <div class="right-w3l">
+                        <input type="submit" class="form-control border text-white bg-theme" value="LoginUsername">
+                    </div>
+
+                    <div class="row sub-w3l my-3">
+                        <div class="col sub-w3layouts">
+                            <input type="checkbox" id="brand1" value="">
+                            <label for="brand1" class="text-secondary">
+                                <span></span>Remember me?
+                            </label>
+                        </div>
+                        <div class="col forgot-w3l text-right text-secondary">
+                            <a href="#" class="text-white">Forgot Password?</a>
+                        </div>
+                    </div>
+                    <p class="text-center text-secondary">
+                        Don't have an account?
+                        <a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark font-weight-bold">
+                            Register Now
+                        </a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- //Login modal -->
+<!-- Register modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-theme2">
+                <h5 class="modal-title" id="exampleModalLabel1">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="recipient-rname" class="col-form-label">Username</label>
+                        <input type="text" class="form-control border" placeholder="john mercy" name="Name" id="recipient-rname" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-email" class="col-form-label">Email</label>
+                        <input type="email" class="form-control border" placeholder="username@email.com" name="Email" id="recipient-email" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password1" class="col-form-label">Password</label>
+                        <input type="password" class="form-control border" placeholder="****" name="Password" id="password1" required="">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="col-form-label">Confirm Password</label>
+                        <input type="password" class="form-control border" placeholder="****" name="ConfirmPassword" id="password2" required="">
+                    </div>
+                    <div id="RegisterError" style="color: red; display: none;"></div>
+                    <br>
+                    <div class="right-w3l">
+                        <input type="submit" class="form-control bg-theme text-white" value="Register">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
+<script src="~/jsLogin/jquery-2.2.3.min.js"></script>
+<script src="~/jsLogin/responsiveslides.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#exampleModal').submit(function (event) {
+            event.preventDefault();
+
+            var formData = {
+                Username: $('#recipient-name').val(),
+                Password: $('#password').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/Login/Login', // URL to the Login action in LoginController
+                data: formData,
+                success: function (response) {
+                    if (response.redirect) {
+                        toastr.success('Login completed successfully!', 'Success');
+                        $('#exampleModal form')[0].reset();
+                        $('#exampleModal').modal('hide');
+                        window.location.href = response.redirectUrl;
+                    } else {
+                        // Display error message
+                        $('#loginError').text(response.message).show();
+                    }
+                },
+                error: function (error) {
+                    console.log('Error: ' + error);
+                    $('#loginError').text('An error occurred. Please try again.').show();
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#exampleModal1 form').submit(function (event) {
+            event.preventDefault();
+
+            var formData = {
+                Username: $('#recipient-rname').val(),
+                Email: $('#recipient-email').val(),
+                Password: $('#password1').val(),
+                ConfirmPassword: $('#password2').val()
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '/Register/Register',
+                data: formData,
+                success: function (response) {
+                    if (response.redirect) {
+                        toastr.success('Registration completed successfully!', 'Success');
+                        $('#exampleModal1 form')[0].reset();
+                        $('#exampleModal1').modal('hide');
+                    } else {
+                        if (response.message === "Passwords do not match") {
+                            $('#exampleModal1 form')[0].reset();
+                            $('#exampleModal1').modal('hide');
+                            toastr.error('Passwords do not match.', 'Error');
+                        } else if (response.message === "Username already exists") {
+                            $('#exampleModal1 form')[0].reset();
+                            $('#exampleModal1').modal('hide');
+                            toastr.error('Username already exists.', 'Error');
+                        } else {
+                            $('#exampleModal1 form')[0].reset();
+                            $('#exampleModal1').modal('hide');
+                            toastr.error(response.message, 'Error');
+                        }
+                    }
+                },
+                error: function (error) {
+                    console.log('Error: ' + error);
+                    $('#RegisterError').text('An error occurred. Please try again.').show();
+                }
+            })
+
+        })
+    });
+
+</script>
+<script src="~/jsLogin/jquery.picEyes.js"></script>
+<script>
+    $(function () {
+        //picturesEyes($('.demo li'));
+        $('.demo li').picEyes();
+    });
+</script>
+<script>
+    window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+    }
+
+    function validatePassword() {
+        var pass2 = document.getElementById("password2").value;
+        var pass1 = document.getElementById("password1").value;
+        if (pass1 != pass2)
+            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+        else
+            document.getElementById("password2").setCustomValidity('');
+        //empty string means no validation error
+    }
+</script>
+<script src="~/jsLogin/counter.js"></script>
+<script src="~/jsLogin/move-top.js"></script>
+<script src="~/jsLogin/easing.js"></script>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".scroll").click(function (event) {
+            event.preventDefault();
+
+            $('html,body').animate({
+                scrollTop: $(this.hash).offset().top
+            }, 1000);
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        /*
+        var defaults = {
+            containerID: 'toTop', // fading element id
+            containerHoverID: 'toTopHover', // fading element hover id
+            scrollSpeed: 1200,
+            easingType: 'linear'
+        };
+        */
+
+        $().UItoTop({
+            easingType: 'easeOutQuart'
+        });
+
+    });
+</script>
+<script src="~/jsLogin/SmoothScroll.min.js"></script>
+<script src="~/jsLogin/bootstrap.js"></script>

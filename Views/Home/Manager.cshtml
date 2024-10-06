@@ -1,0 +1,246 @@
+﻿@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/_LayoutPageLogin.cshtml";
+}
+@model IEnumerable<Rest.Models.TableReservation>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Table Reservation</title>
+    <link href="~/cssLogin/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/portfolio.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/style.css" type="text/css" rel="stylesheet" media="all">
+    <link href="~/cssLogin/font-awesome.css" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/stylesTable.css">
+
+    <style>
+        /* Add your custom styles here */
+        .container {
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: #5341b4;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .btn {
+            padding: 5px 10px;
+            margin: 0 5px;
+        }
+
+        .container1 {
+            color: black;
+            display: flex;
+            justify-content: space-between; /* Distribute space between the headings */
+            align-items: center; /* Vertically align the headings */
+            gap: 20px; /* Optional: You can add a gap between items */
+        }
+
+        .heading {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+            cursor: pointer; /* Show pointer on hover */
+            border-radius: 10%;
+        }
+
+            /* Hover effect */
+            .heading:hover {
+                background-color: #5341b4; /* Light grey when hovering */
+                border-radius: 10%;
+                color: white;
+            }
+
+        /* Active class for the clicked heading */
+        .active {
+            background-color: #5341b4;
+            color: white;
+            
+        }
+
+
+    </style>
+</head>
+
+
+<body style="background-color: white;">
+    @*<header>
+            <div class="user-info">
+
+            </div>
+        </header>*@
+
+    <div class="container container1">
+        <h3 class="heading active" id="bookings">Booking Requests</h3>
+        <h3 class="heading" id="rejected">Rejected Reservations</h3>
+        <h3 class="heading" id="accepted">Accepted Reservations</h3>
+    </div>
+
+    <div class="container">
+        <h2 style="font-family: Arial, sans-serif; color: black;">Bookings</h2>
+        <table id="bookingRequestsTable">
+            <thead>
+                <tr>
+                    <th>Nr</th>
+                    <th>Username</th>
+                    <th>Table Number</th>
+                    <th>Number of Persons</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Model.Where(res => res.Id_ReservationStatus == 4).Select((res, index) => new { Reservation = res, Index = index + 1 }))
+                {
+                    <tr>
+                        <td>@reservation.Index</td>
+                        <td>@reservation.Reservation.User.Username</td>
+                        <td>@reservation.Reservation.Table.Table_Number</td>
+                        <td>@reservation.Reservation.NumberOfPersons</td>
+                        <td>@reservation.Reservation.Reservation_Date.ToString("yyyy-MM-dd")</td>
+                        <td>@reservation.Reservation.Reservation_Time.ToString(@"hh\:mm")</td>
+                        <td>@reservation.Reservation.ReservateStatu.ReservationStatus</td>
+                        <td>
+                            <button class="btn btn-success" onclick="acceptBooking(@reservation.Reservation.Id_ReservationTable)">Accept</button>
+                            <button class="btn btn-danger" onclick="rejectBooking(@reservation.Reservation.Id_ReservationTable)">Reject</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Accepted Reservations Table -->
+        <table id="acceptedTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Nr</th>
+                    <th>Username</th>
+                    <th>Table Number</th>
+                    <th>Number of Persons</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Model.Where(res => res.Id_ReservationStatus == 1).Select((res, index) => new { Reservation = res, Index = index + 1 }))
+                {
+                    <tr>
+                        <td>@reservation.Index</td>
+                        <td>@reservation.Reservation.User.Username</td>
+                        <td>@reservation.Reservation.Table.Table_Number</td>
+                        <td>@reservation.Reservation.NumberOfPersons</td>
+                        <td>@reservation.Reservation.Reservation_Date.ToString("yyyy-MM-dd")</td>
+                        <td>@reservation.Reservation.Reservation_Time.ToString(@"hh\:mm")</td>
+                        <td>Accepted</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Rejected Reservations Table -->
+        <table id="rejectedTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Nr</th>
+                    <th>Username</th>
+                    <th>Table Number</th>
+                    <th>Number of Persons</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var reservation in Model.Where(res => res.Id_ReservationStatus == 2).Select((res, index) => new { Reservation = res, Index = index + 1 }))
+                {
+                    <tr>
+                        <td>@reservation.Index</td>
+                        <td>@reservation.Reservation.User.Username</td>
+                        <td>@reservation.Reservation.Table.Table_Number</td>
+                        <td>@reservation.Reservation.NumberOfPersons</td>
+                        <td>@reservation.Reservation.Reservation_Date.ToString("yyyy-MM-dd")</td>
+                        <td>@reservation.Reservation.Reservation_Time.ToString(@"hh\:mm")</td>
+                        <td>Rejected</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+
+
+</body>
+</html>
+
+<script src="~/js/scriptTable.js"></script>
+<script>
+
+
+    const headings = document.querySelectorAll('.heading');
+    const bookingRequestsTable = document.getElementById('bookingRequestsTable');
+    const acceptedTable = document.getElementById('acceptedTable');
+    const rejectedTable = document.getElementById('rejectedTable');
+
+    headings.forEach(heading => {
+        heading.addEventListener('click', function () {
+            // Remove 'active' class from all headings
+            headings.forEach(h => h.classList.remove('active'));
+
+            // Add 'active' class to the clicked heading
+            this.classList.add('active');
+
+            // Show the appropriate table based on the selected heading
+            if (this.id === 'bookings') {
+                bookingRequestsTable.style.display = '';
+                acceptedTable.style.display = 'none';
+                rejectedTable.style.display = 'none';
+            } else if (this.id === 'accepted') {
+                bookingRequestsTable.style.display = 'none';
+                acceptedTable.style.display = '';
+                rejectedTable.style.display = 'none';
+            } else if (this.id === 'rejected') {
+                bookingRequestsTable.style.display = 'none';
+                acceptedTable.style.display = 'none';
+                rejectedTable.style.display = '';
+            }
+        });
+    });
+
+
+
+
+    function acceptBooking(id) {
+        // Logic to accept the booking
+        alert('Booking ' + id + ' accepted.');
+    }
+
+    function rejectBooking(id) {
+        // Logic to reject the booking
+        alert('Booking ' + id + ' rejected.');
+    }
+</script>
