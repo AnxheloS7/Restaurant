@@ -1,0 +1,30 @@
+﻿
+@model IEnumerable<Rest.Models.TableReservation>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nr</th>
+            <th>Username</th>
+            <th>Table Number</th>
+            <th>Number of Persons</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model.Select((res, index) => new { Reservation = res, Index = index + 1 }))
+        {
+            <tr id="row-@reservation.Reservation.Id_ReservationTable">
+                <td>@reservation.Index</td>
+                <td>@reservation.Reservation.User.Username</td>
+                <td>@reservation.Reservation.Table.Table_Number</td>
+                <td>@reservation.Reservation.NumberOfPersons</td>
+                <td>@reservation.Reservation.Reservation_Date.ToString("yyyy-MM-dd")</td>
+                <td>@reservation.Reservation.Reservation_Time.ToString(@"hh\:mm")</td>
+                <td>@reservation.Reservation.ReservateStatu.ReservationStatus</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -18,11 +18,6 @@
                 </div>
                 <div class="col-lg-9 header-bottom-wthree">
                     <div class="d-md-flex justify-content-lg-end justify-content-center header-right">
-                        <button id="loginButton" type="button" class="btn  wthree-link-bnr bg-transparent text-secondary"
-                                data-toggle="modal" aria-pressed="false" data-target="#exampleModal" style="display: inline;">
-                            login
-                        </button>
-                        <button type="button" id="registerButton" class="btn  ml-2 wthree-link-bnr" data-toggle="modal" data-target="#exampleModal1">register</button>
                         <div class="right_nav">
                             <div style="display: flex; align-items: center;">
                                 <!-- Display the username -->
@@ -60,14 +55,8 @@
         var isLoginPage = currentPage === '/' || currentPage.includes('Home/LoginForm');
 
         if (isLoginPage) {
-            // Show login and register buttons, hide logout button
-            loginButton.style.display = 'block';
-            registerButton.style.display = 'block';
             logoutButton.style.display = 'none';
         } else {
-            // Hide login and register buttons, show logout button
-            loginButton.style.display = 'none';
-            registerButton.style.display = 'none';
             logoutButton.style.display = 'block';
         }
     });

@@ -21,6 +21,7 @@
     <style>
         /* Add your custom styles here */
         .container {
+            overflow: auto;
             margin: 20px auto;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -50,6 +51,9 @@
             margin: 0 5px;
         }
 
+
+
+
         .container1 {
             color: black;
             display: flex;
@@ -76,9 +80,13 @@
         .active {
             background-color: #5341b4;
             color: white;
-            
         }
 
+        @@media screen and (max-width: 720px) {
+    .container1 h3 {
+        font-size: 18px; /* Reduced font size */
+    }
+}
 
     </style>
 </head>
@@ -93,13 +101,14 @@
 
     <div class="container container1">
         <h3 class="heading active" id="bookings">Booking Requests</h3>
-        <h3 class="heading" id="rejected">Rejected Reservations</h3>
         <h3 class="heading" id="accepted">Accepted Reservations</h3>
+        <h3 class="heading" id="rejected">Rejected Reservations</h3>
     </div>
 
     <div class="container">
-        <h2 style="font-family: Arial, sans-serif; color: black;">Bookings</h2>
+        <h2>Bookings</h2>
         <table id="bookingRequestsTable">
+            <!-- Booking Requests Table -->
             <thead>
                 <tr>
                     <th>Nr</th>
@@ -115,7 +124,7 @@
             <tbody>
                 @foreach (var reservation in Model.Where(res => res.Id_ReservationStatus == 4).Select((res, index) => new { Reservation = res, Index = index + 1 }))
                 {
-                    <tr>
+                    <tr id="row-@reservation.Reservation.Id_ReservationTable">
                         <td>@reservation.Index</td>
                         <td>@reservation.Reservation.User.Username</td>
                         <td>@reservation.Reservation.Table.Table_Number</td>
@@ -132,63 +141,13 @@
             </tbody>
         </table>
 
-        <!-- Accepted Reservations Table -->
-        <table id="acceptedTable" style="display:none;">
-            <thead>
-                <tr>
-                    <th>Nr</th>
-                    <th>Username</th>
-                    <th>Table Number</th>
-                    <th>Number of Persons</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var reservation in Model.Where(res => res.Id_ReservationStatus == 1).Select((res, index) => new { Reservation = res, Index = index + 1 }))
-                {
-                    <tr>
-                        <td>@reservation.Index</td>
-                        <td>@reservation.Reservation.User.Username</td>
-                        <td>@reservation.Reservation.Table.Table_Number</td>
-                        <td>@reservation.Reservation.NumberOfPersons</td>
-                        <td>@reservation.Reservation.Reservation_Date.ToString("yyyy-MM-dd")</td>
-                        <td>@reservation.Reservation.Reservation_Time.ToString(@"hh\:mm")</td>
-                        <td>Accepted</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div id="accepted-reservations-table">
+            @Html.Partial("~/Views/_ReservationsTablePartial.cshtml", Model.Where(r => r.Id_ReservationStatus == 1))
+        </div>
 
-        <!-- Rejected Reservations Table -->
-        <table id="rejectedTable" style="display:none;">
-            <thead>
-                <tr>
-                    <th>Nr</th>
-                    <th>Username</th>
-                    <th>Table Number</th>
-                    <th>Number of Persons</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var reservation in Model.Where(res => res.Id_ReservationStatus == 2).Select((res, index) => new { Reservation = res, Index = index + 1 }))
-                {
-                    <tr>
-                        <td>@reservation.Index</td>
-                        <td>@reservation.Reservation.User.Username</td>
-                        <td>@reservation.Reservation.Table.Table_Number</td>
-                        <td>@reservation.Reservation.NumberOfPersons</td>
-                        <td>@reservation.Reservation.Reservation_Date.ToString("yyyy-MM-dd")</td>
-                        <td>@reservation.Reservation.Reservation_Time.ToString(@"hh\:mm")</td>
-                        <td>Rejected</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div id="rejected-reservations-table">
+            @Html.Partial("~/Views/_ReservationsTablePartial.cshtml", Model.Where(r => r.Id_ReservationStatus == 2))
+        </div>
     </div>
 
 
@@ -198,49 +157,109 @@
 </html>
 
 <script src="~/js/scriptTable.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Toastr CSS and JS for notifications -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
 
+    $(document).ready(function () {
+        // Hide the accepted and rejected tables initially
+        $('#accepted-reservations-table').hide();
+        $('#rejected-reservations-table').hide();
 
-    const headings = document.querySelectorAll('.heading');
-    const bookingRequestsTable = document.getElementById('bookingRequestsTable');
-    const acceptedTable = document.getElementById('acceptedTable');
-    const rejectedTable = document.getElementById('rejectedTable');
+        // Add click event listeners to the headings
+        $('.heading').click(function () {
+            // Remove the 'active' class from all headings
+            $('.heading').removeClass('active');
 
-    headings.forEach(heading => {
-        heading.addEventListener('click', function () {
-            // Remove 'active' class from all headings
-            headings.forEach(h => h.classList.remove('active'));
+            // Add the 'active' class to the clicked heading
+            $(this).addClass('active');
 
-            // Add 'active' class to the clicked heading
-            this.classList.add('active');
-
-            // Show the appropriate table based on the selected heading
-            if (this.id === 'bookings') {
-                bookingRequestsTable.style.display = '';
-                acceptedTable.style.display = 'none';
-                rejectedTable.style.display = 'none';
-            } else if (this.id === 'accepted') {
-                bookingRequestsTable.style.display = 'none';
-                acceptedTable.style.display = '';
-                rejectedTable.style.display = 'none';
-            } else if (this.id === 'rejected') {
-                bookingRequestsTable.style.display = 'none';
-                acceptedTable.style.display = 'none';
-                rejectedTable.style.display = '';
+            // Show/hide the appropriate table based on the clicked heading
+            if ($(this).attr('id') === 'bookings') {
+                $('#bookingRequestsTable').show();
+                $('#accepted-reservations-table').hide();
+                $('#rejected-reservations-table').hide();
+            } else if ($(this).attr('id') === 'accepted') {
+                $('#bookingRequestsTable').hide();
+                $('#accepted-reservations-table').show();
+                $('#rejected-reservations-table').hide();
+            } else if ($(this).attr('id') === 'rejected') {
+                $('#bookingRequestsTable').hide();
+                $('#accepted-reservations-table').hide();
+                $('#rejected-reservations-table').show();
             }
         });
     });
 
-
-
-
     function acceptBooking(id) {
-        // Logic to accept the booking
-        alert('Booking ' + id + ' accepted.');
+        $.ajax({
+            url: '/Reservation/UpdateReservationStatus',
+            type: 'POST',
+            data: { id: id, status: 1 }, // status 1 for accepted
+            success: function (response) {
+                if (response.success) {
+                    // Remove the row from the booking table
+                    $('#row-' + id).remove();
+
+                    // Update the Accepted Reservations table by loading partial view
+                    updateReservationsTable(1); // 1 = Accepted status
+
+                    toastr.success('Booking accepted successfully.');
+                } else {
+                    toastr.error('Failed to accept the booking.');
+                }
+            },
+            error: function () {
+                toastr.error('An error occurred while processing the request.');
+            }
+        });
     }
 
     function rejectBooking(id) {
-        // Logic to reject the booking
-        alert('Booking ' + id + ' rejected.');
+        $.ajax({
+            url: '/Reservation/UpdateReservationStatus',
+            type: 'POST',
+            data: { id: id, status: 2 }, // status 2 for rejected
+            success: function (response) {
+                if (response.success) {
+                    // Remove the row from the booking table
+                    $('#row-' + id).remove();
+
+                    // Update the Rejected Reservations table by loading partial view
+                    updateReservationsTable(2); // 2 = Rejected status
+
+                    toastr.success('Booking rejected successfully.');
+                } else {
+                    toastr.error('Failed to reject the booking.');
+                }
+            },
+            error: function () {
+                toastr.error('An error occurred while processing the request.');
+            }
+        });
+    }
+
+    function updateReservationsTable(status) {
+        // Fetch the updated reservations for either accepted or rejected bookings
+        $.ajax({
+            url: '/Reservation/GetUpdatedReservations',
+            type: 'GET',
+            data: { status: status }, // Pass the status (1 for accepted, 2 for rejected)
+            success: function (html) {
+                if (status === 1) {
+                    // Update the Accepted Reservations table
+                    $('#accepted-reservations-table').html(html);
+                } else if (status === 2) {
+                    // Update the Rejected Reservations table
+                    $('#rejected-reservations-table').html(html);
+                }
+            },
+            error: function () {
+                toastr.error('Failed to update the reservations table.');
+            }
+        });
     }
 </script>

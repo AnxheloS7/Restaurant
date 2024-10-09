@@ -28,178 +28,117 @@
     <link href="//fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 </head>
+<body>
+    <div class="contact-wthree pt-lg-5" id="contact">
+        <div class="container pt-md-5 pt-4">
+            <div class="text-center mt-5">
+                <h4 class="w3pvt-title">Want to enjoy the best traditional food in Gjirokastra</h4>
+            </div>
 
-<div class="contact-wthree pt-lg-5" id="contact">
-    <div class="container pt-md-5 pt-4">
-        <div class="text-center">
-            <h4 class="w3pvt-title">Want to enjoy the best traditional food in Gjirokastra</h4>
+            <div class="col-lg-9 header-bottom-wthree mx-auto">
+                <div class="d-flex flex-column align-items-center justify-content-center mt-4">
+                    <div class="d-flex justify-content-center mb-3">
+                        <button id="loginButton" type="button" class="btn wthree-link-bnr bg-transparent text-secondary"
+                                data-toggle="modal" aria-pressed="false" data-target="#exampleModal">
+                            Login
+                        </button>
+                        <button type="button" id="registerButton" class="btn ml-3 wthree-link-bnr" data-toggle="modal" data-target="#exampleModal1">
+                            Register
+                        </button>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <div class="">
-            <div class="col-12">
-                <div class="register-top1">
-                    <form action="#" method="post" class="register-wthree">
+    </div>
+
+
+    <!-- //footer -->
+    <!-- Login modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-theme2">
+                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="post">
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>
-                                        First name
-                                    </label>
-                                    <input class="form-control" type="text" placeholder="Johnson" name="email"
-                                           required="">
-                                </div>
-                                <div class="col-md-6 mt-md-0 mt-4">
-                                    <label>
-                                        Last name
-                                    </label>
-                                    <input class="form-control" type="text" placeholder="Kc" name="name" required="">
-                                </div>
-                            </div>
+                            <label for="recipient-name" class="col-form-label">Username</label>
+                            <input type="text" class="form-control border" placeholder="Username" name="Name" id="recipient-name"
+                                   required="">
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label>
-                                        Mobile
-                                    </label>
-                                    <input class="form-control" type="text" placeholder="xxxx xxxxx" name="email"
-                                           required="">
-                                </div>
-                                <div class="col-md-6 mt-md-0 mt-4">
-                                    <label>
-                                        Email
-                                    </label>
-                                    <input class="form-control" type="email" placeholder="example@email.com" name="email"
-                                           required="">
-                                </div>
+                            <label for="password" class="col-form-label">Password</label>
+                            <input type="password" class="form-control border" placeholder="****" name="Password" id="password"
+                                   required="">
+                        </div>
+                        <div id="loginError" style="color: red; display: none;"></div>
+                        <br>
+                        <div class="right-w3l">
+                            <input type="submit" class="form-control border text-white bg-theme" value="Log in">
+                        </div>
+
+                        <div class="row sub-w3l my-3">
+                            <div class="col forgot-w3l text-right text-secondary">
+                                <a href="#" class="text-white">Forgot Password?</a>
                             </div>
+                        </div>
+                        <p class="text-center text-secondary">
+                            Don't have an account?
+                            <a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark font-weight-bold">
+                                Register Now
+                            </a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- //Login modal -->
+    <!-- Register modal -->
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-theme2">
+                    <h5 class="modal-title" id="exampleModalLabel1">Register</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="#" method="post">
+                        <div class="form-group">
+                            <label for="recipient-rname" class="col-form-label">Username</label>
+                            <input type="text" class="form-control border" placeholder="john mercy" name="Name" id="recipient-rname" required="">
                         </div>
                         <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <label>
-                                        Your message
-                                    </label>
-                                    <textarea placeholder="Type your message here" class="form-control"></textarea>
-                                </div>
-                            </div>
+                            <label for="recipient-email" class="col-form-label">Email</label>
+                            <input type="email" class="form-control border" placeholder="username@email.com" name="Email" id="recipient-email" required="">
                         </div>
-                        <div class="row mt-3">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-w3layouts btn-block  bg-theme text-white w-100 font-weight-bold text-uppercase">Book now</button>
-                            </div>
+                        <div class="form-group">
+                            <label for="password1" class="col-form-label">Password</label>
+                            <input type="password" class="form-control border" placeholder="****" name="Password" id="password1" required="">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2" class="col-form-label">Confirm Password</label>
+                            <input type="password" class="form-control border" placeholder="****" name="ConfirmPassword" id="password2" required="">
+                        </div>
+                        <div id="RegisterError" style="color: red; display: none;"></div>
+                        <br>
+                        <div class="right-w3l">
+                            <input type="submit" class="form-control bg-theme text-white" value="Register">
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 footer-logo mb-lg-0 mb-4 text-lg-left text-center">
-                <h2>
-                </h2>
-            </div>
-            <div class="col-lg-6 cpy-right text-lg-right text-center">
-                <p>
-                </p>
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- //footer -->
-<!-- Login modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-theme2">
-                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Username</label>
-                        <input type="text" class="form-control border" placeholder="Username" name="Name" id="recipient-name"
-                               required="">
-                    </div>
-                    <div class="form-group">
-                        <label for="password" class="col-form-label">Password</label>
-                        <input type="password" class="form-control border" placeholder="****" name="Password" id="password"
-                               required="">
-                    </div>
-                    <div id="loginError" style="color: red; display: none;"></div>
-                    <br>
-                    <div class="right-w3l">
-                        <input type="submit" class="form-control border text-white bg-theme" value="LoginUsername">
-                    </div>
-
-                    <div class="row sub-w3l my-3">
-                        <div class="col sub-w3layouts">
-                            <input type="checkbox" id="brand1" value="">
-                            <label for="brand1" class="text-secondary">
-                                <span></span>Remember me?
-                            </label>
-                        </div>
-                        <div class="col forgot-w3l text-right text-secondary">
-                            <a href="#" class="text-white">Forgot Password?</a>
-                        </div>
-                    </div>
-                    <p class="text-center text-secondary">
-                        Don't have an account?
-                        <a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark font-weight-bold">
-                            Register Now
-                        </a>
-                    </p>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- //Login modal -->
-<!-- Register modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-theme2">
-                <h5 class="modal-title" id="exampleModalLabel1">Register</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="#" method="post">
-                    <div class="form-group">
-                        <label for="recipient-rname" class="col-form-label">Username</label>
-                        <input type="text" class="form-control border" placeholder="john mercy" name="Name" id="recipient-rname" required="">
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-email" class="col-form-label">Email</label>
-                        <input type="email" class="form-control border" placeholder="username@email.com" name="Email" id="recipient-email" required="">
-                    </div>
-                    <div class="form-group">
-                        <label for="password1" class="col-form-label">Password</label>
-                        <input type="password" class="form-control border" placeholder="****" name="Password" id="password1" required="">
-                    </div>
-                    <div class="form-group">
-                        <label for="password2" class="col-form-label">Confirm Password</label>
-                        <input type="password" class="form-control border" placeholder="****" name="ConfirmPassword" id="password2" required="">
-                    </div>
-                    <div id="RegisterError" style="color: red; display: none;"></div>
-                    <br>
-                    <div class="right-w3l">
-                        <input type="submit" class="form-control bg-theme text-white" value="Register">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
+</body>
 </html>
 <script src="~/jsLogin/jquery-2.2.3.min.js"></script>
 <script src="~/jsLogin/responsiveslides.min.js"></script>
@@ -325,15 +264,7 @@
 </script>
 <script>
     $(document).ready(function () {
-        /*
-        var defaults = {
-            containerID: 'toTop', // fading element id
-            containerHoverID: 'toTopHover', // fading element hover id
-            scrollSpeed: 1200,
-            easingType: 'linear'
-        };
-        */
-
+        
         $().UItoTop({
             easingType: 'easeOutQuart'
         });

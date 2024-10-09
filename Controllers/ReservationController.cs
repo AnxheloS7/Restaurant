@@ -15,6 +15,8 @@ namespace Rest.Controllers
         //    return View();
         //}
 
+        RestorantEntities restorant = new RestorantEntities();
+
         [HttpPost]
         public JsonResult AddReservation(int tableId, int numPeople, DateTime reservationDate, TimeSpan reservationTime)
         {
@@ -47,6 +49,38 @@ namespace Rest.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult UpdateReservationStatus(int id, int status)
+        {
+            try
+            {
+                // Update the reservation status in the database
+                var reservation = restorant.TableReservations.Find(id);
+                if (reservation != null)
+                {
+                    reservation.Id_ReservationStatus = status;
+                    restorant.SaveChanges();
 
+                    return Json(new { success = true });
+                }
+                return Json(new { success = false });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpGet]
+        public PartialViewResult GetUpdatedReservations(int status)
+        {
+            // Fetch the updated reservations based on their status (Accepted = 1, Rejected = 2)
+            var reservations = restorant.TableReservations
+                                        .Where(r => r.Id_ReservationStatus == status)
+                                        .ToList();
+
+            // Assuming the partial is located in Views/Shared folder
+            return PartialView("~/Views/_ReservationsTablePartial.cshtml", reservations);
+        }
     }
 }
