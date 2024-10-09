@@ -9,7 +9,7 @@ namespace Rest.Controllers
 {
     public class HomeController : Controller
     {
-        RestorantEntities hotel = new RestorantEntities();
+        RestorantEntities1 hotel = new RestorantEntities1();
 
         // GET: Home
         public ActionResult Index()
@@ -47,7 +47,7 @@ namespace Rest.Controllers
 
         public ActionResult Manager()
         {
-            using (var context = new RestorantEntities())
+            using (var context = new RestorantEntities1())
             {
                 // Fetch the table reservation data
 

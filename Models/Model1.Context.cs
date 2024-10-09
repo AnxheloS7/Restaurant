@@ -13,10 +13,10 @@ namespace Rest.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RestorantEntities : DbContext
+    public partial class RestorantEntities1 : DbContext
     {
-        public RestorantEntities()
-            : base("name=RestorantEntities")
+        public RestorantEntities1()
+            : base("name=RestorantEntities1")
         {
         }
     

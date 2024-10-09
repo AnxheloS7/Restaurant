@@ -4,14 +4,14 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b6c115ed62724a36a498adf6945297f4" Name="Diagram1">
-        <EntityTypeShape EntityType="RestorantModel.ReservateStatu" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestorantModel.Role" Width="1.5" PointX="0.75" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestorantModel.StatusTable" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+      <Diagram DiagramId="f3343b5398b840719abe3b6af872f8f2" Name="Diagram1">
+        <EntityTypeShape EntityType="RestorantModel.ReservateStatu" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestorantModel.Role" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestorantModel.StatusTable" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="RestorantModel.sysdiagram" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="RestorantModel.TableReservation" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestorantModel.Table" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="RestorantModel.User" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestorantModel.Table" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RestorantModel.User" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
         <AssociationConnector Association="RestorantModel.FK_TableReservations_ReservateStatus1" ManuallyRouted="false" />
         <AssociationConnector Association="RestorantModel.FK_Users_Roles" ManuallyRouted="false" />
         <AssociationConnector Association="RestorantModel.FK_Tables_StatusTable" ManuallyRouted="false" />

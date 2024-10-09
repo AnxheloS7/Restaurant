@@ -7,7 +7,7 @@ namespace Rest.Controllers
 {
     public class RegisterController : Controller
     {
-        RestorantEntities hotel = new RestorantEntities();
+        RestorantEntities1 hotel = new RestorantEntities1();
                 
         [HttpPost]
         public JsonResult Register(string Username, string Email, string Password, string ConfirmPassword)

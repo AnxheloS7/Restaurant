@@ -22,6 +22,8 @@ namespace Rest.Models
         public int TableNumber { get; set; }
         public int NumberOfPersons { get; set; }
         public int Id_ReservationStatus { get; set; }
+        public bool HasUserBeenNotified { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
     
         public virtual ReservateStatu ReservateStatu { get; set; }
         public virtual Table Table { get; set; }

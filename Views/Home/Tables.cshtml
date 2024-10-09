@@ -186,52 +186,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script>
 
+      $(document).ready(function() {
+    // Get the notification from the server
+    var notification = @Html.Raw(Json.Encode(Session["Notification"]));
 
-        $(document).ready(function () {
-            // Attach an event handler for the form submission
-            $('.reservationForm').on('submit', function (e) {
-                e.preventDefault(); // Prevent the form from submitting the traditional way
+    if (notification) {
+        if (notification.Id_ReservationStatus === 1) {
+            toastr.success('Your booking has been accepted on ' + notification.Date + ' at ' + notification.Time + '.');
+            // Optionally, update the reservation UI to show it's accepted (e.g., change color to green)
+            //var button = $('#btn-' + notification.Id_ReservationTable);
+            //var statusElement = $('#status-' + notification.Id_ReservationTable);
+            //button.text('Accepted');
+            //button.attr('disabled', false);
+            //button.css('background-color', 'green'); // Change background to green
+            //statusElement.text('Status: Accepted');
+        } else if (notification.Id_ReservationStatus === 2) {
+            toastr.error('Your booking has been rejected on ' + notification.Date + ' at ' + notification.Time + '.');
+        }
 
-                // Extract table ID and form data
-                var form = $(this);
-                var tableId = form.data('table-id');
-                var formData = form.serialize(); // Serialize form data for AJAX request
-                console.log(formData)
-                // Send the AJAX request
-                $.ajax({
-                    url: '/Reservation/AddReservation', // The URL to send the request to
-                    type: 'POST',
-                    data: formData, // The form data
-                    success: function (response) {
-                        if (response.success) {
-                            // Show a success notification
-                            toastr.success(response.message);
-
-                            // Update the table's status on the page to "Pending" or "Reserved"
-                            var button = $('#btn-' + tableId);
-                            var statusElement = $('#status-' + tableId);
-                            var reservationTime = $('#reservationDate-' + tableId);
-                            var reservationDate = $('#reservationTime-' + tableId);
-                            var numOfPeople = $('#numPeople-' + tableId);
-
-                            numOfPeople.attr('disabled', true);
-                            reservationDate.attr('disabled', true);
-                            reservationTime.attr('disabled', true);
-                            button.text('Pending'); // Change button text to Pending
-                            button.attr('disabled', true); // Disable the button
-                            button.css('background-color', 'gray'); // Optional: Change the background color
-                            statusElement.text('Status: Pending'); // Update the status
-                        } else {
-                            // Show an error notification
-                            toastr.error(response.message);
-                        }
-                    },
-                    error: function () {
-                        toastr.error('An unexpected error occurred while making the reservation.');
-                    }
-                });
-            });
+        // Optionally, send an AJAX request to mark the notification as read
+        $.ajax({
+            url: '/Reservation/MarkAsNotified',
+            type: 'POST',
+            data: { id: notification.Id_ReservationTable }
         });
+    }
+});
+
+// Reservation form submission
+$('.reservationForm').on('submit', function (e) {
+    e.preventDefault(); // Prevent the form from submitting the traditional way
+
+    // Extract table ID and form data
+    var form = $(this);
+    var tableId = form.data('table-id');
+    var formData = form.serialize(); // Serialize form data for AJAX request
+
+    // Send the AJAX request
+    $.ajax({
+        url: '/Reservation/AddReservation', // The URL to send the request to
+        type: 'POST',
+        data: formData, // The form data
+        success: function (response) {
+            if (response.success) {
+                // Show a success notification
+                toastr.success(response.message);
+
+                // Update the table's status on the page to "Pending" or "Reserved"
+                var button = $('#btn-' + tableId);
+                var statusElement = $('#status-' + tableId);
+                var reservationTime = $('#reservationDate-' + tableId);
+                var reservationDate = $('#reservationTime-' + tableId);
+                var numOfPeople = $('#numPeople-' + tableId);
+
+                numOfPeople.attr('disabled', true);
+                reservationDate.attr('disabled', true);
+                reservationTime.attr('disabled', true);
+                button.text('Pending'); // Change button text to Pending
+                button.attr('disabled', true); // Disable the button
+                button.css('background-color', 'gray'); // Optional: Change the background color
+                statusElement.text('Status: Pending'); // Update the status
+            } else {
+                // Show an error notification
+                toastr.error(response.message);
+            }
+        },
+        error: function () {
+            toastr.error('An unexpected error occurred while making the reservation.');
+        }
+    });
+});
+
 
 
     </script>

@@ -48,6 +48,8 @@
           <Property Name="TableNumber" Type="int" Nullable="false" />
           <Property Name="NumberOfPersons" Type="int" Nullable="false" />
           <Property Name="Id_ReservationStatus" Type="int" Nullable="false" />
+          <Property Name="HasUserBeenNotified" Type="bit" Nullable="false" />
+          <Property Name="CreatedAt" Type="datetime" />
         </EntityType>
         <EntityType Name="Tables">
           <Key>
@@ -208,6 +210,8 @@
           <Property Name="TableNumber" Type="Int32" Nullable="false" />
           <Property Name="NumberOfPersons" Type="Int32" Nullable="false" />
           <Property Name="Id_ReservationStatus" Type="Int32" Nullable="false" />
+          <Property Name="HasUserBeenNotified" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <NavigationProperty Name="ReservateStatu" Relationship="Self.FK_TableReservations_ReservateStatus1" FromRole="TableReservations" ToRole="ReservateStatus" />
           <NavigationProperty Name="Table" Relationship="Self.FK_TableReservations_Tables" FromRole="TableReservations" ToRole="Tables" />
           <NavigationProperty Name="User" Relationship="Self.FK_TableReservations_Users" FromRole="TableReservations" ToRole="Users" />
@@ -295,7 +299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="RestorantEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RestorantEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ReservateStatus" EntityType="Self.ReservateStatu" />
           <EntitySet Name="Roles" EntityType="Self.Role" />
           <EntitySet Name="StatusTables" EntityType="Self.StatusTable" />
@@ -329,7 +333,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="RestorantModelStoreContainer" CdmEntityContainer="RestorantEntities">
+        <EntityContainerMapping StorageEntityContainer="RestorantModelStoreContainer" CdmEntityContainer="RestorantEntities1">
           <EntitySetMapping Name="ReservateStatus">
             <EntityTypeMapping TypeName="RestorantModel.ReservateStatu">
               <MappingFragment StoreEntitySet="ReservateStatus">
@@ -376,6 +380,8 @@
                 <ScalarProperty Name="TableNumber" ColumnName="TableNumber" />
                 <ScalarProperty Name="NumberOfPersons" ColumnName="NumberOfPersons" />
                 <ScalarProperty Name="Id_ReservationStatus" ColumnName="Id_ReservationStatus" />
+                <ScalarProperty Name="HasUserBeenNotified" ColumnName="HasUserBeenNotified" />
+                <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

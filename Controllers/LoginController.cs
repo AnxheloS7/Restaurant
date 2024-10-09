@@ -10,7 +10,7 @@ namespace Rest.Controllers
 {
     public class LoginController : Controller
     {
-        RestorantEntities hotel = new RestorantEntities();
+        RestorantEntities1 hotel = new RestorantEntities1();
         public JsonResult Login(string Username, string Password)
         {
             string encryptedPassword = EncryptPassword(Password); // Implement your encryption method
@@ -19,22 +19,44 @@ namespace Rest.Controllers
 
             if (user != null)
             {
+                // Store user information in session
                 Session["UserId"] = user.Id_User;
                 Session["Username"] = user.Username;
 
+                // Get the latest reservation notification that hasn't been notified
+                var reservations = hotel.TableReservations
+                .Where(r => r.Id_User == user.Id_User)
+                .ToList(); // Retrieve reservations to memory
 
-                if (user.Id_Roli == 1)
+                var latestReservation = reservations
+                    .Where(r => !r.HasUserBeenNotified)
+                    .OrderByDescending(r => r.CreatedAt) // Order by the creation time
+                    .FirstOrDefault();
+
+                // Prepare notification data with date and time
+                var notification = latestReservation != null ? new
                 {
-                    return Json(new { redirect = true, redirectUrl = Url.Action("Manager", "Home") });
-                }
-                else
-                {
-                    return Json(new { redirect = true, redirectUrl = Url.Action("Tables", "Home") });
-                }
+                    latestReservation.Id_ReservationTable,
+                    latestReservation.Id_ReservationStatus,
+                    Date = latestReservation.Reservation_Date.ToString("yyyy-MM-dd"),
+                    Time = latestReservation.Reservation_Time.ToString(@"hh\:mm")
+                } : null;
+
+
+
+                // Add the notification to the session or pass it along with the JSON response
+                Session["Notification"] = notification;
+
+                string redirectUrl = user.Id_Roli == 1
+                                     ? Url.Action("Manager", "Home")
+                                     : Url.Action("Tables", "Home");
+
+                return Json(new { redirect = true, redirectUrl, notification });
             }
 
             return Json(new { redirect = false, message = "Invalid username or password." });
         }
+
 
         private string EncryptPassword(string password)
         {
