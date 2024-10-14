@@ -9,12 +9,6 @@ namespace Rest.Controllers
 {
     public class ReservationController : Controller
     {
-        //// GET: Reservation
-        //public ActionResult Index()
-        //{
-        //    return View();
-        //}
-
         RestorantEntities1 restorant = new RestorantEntities1();
 
         [HttpPost]
@@ -24,23 +18,38 @@ namespace Rest.Controllers
             {
                 using (var db = new RestorantEntities1())
                 {
+                    var lowerTimeLimit = reservationTime.Subtract(TimeSpan.FromHours(1));
+                    var upperTimeLimit = reservationTime.Add(TimeSpan.FromHours(2));
+
+                    var existingReservation = db.TableReservations
+                        .Where(r => r.Id_Table == tableId
+                                    && r.Reservation_Date == reservationDate
+                                    && r.Reservation_Time >= lowerTimeLimit
+                                    && r.Reservation_Time <= upperTimeLimit
+                                    && r.Id_ReservationStatus == 1) 
+                        .FirstOrDefault();
+
+                    if (existingReservation != null)
+                    {
+                        return Json(new { success = false, message = "This time slot (within 3 hours) is already reserved for this table! Please try another table or another time of the day. Thank you!" });
+                    }
+
                     var newReservation = new TableReservation
                     {
                         Reservation_Date = reservationDate,
                         Reservation_Time = reservationTime,
-                        Id_User = (int)Session["UserId"], // Assuming user session is set
+                        Id_User = (int)Session["UserId"], 
                         Id_Table = tableId,
                         NumberOfPersons = numPeople,
                         CreatedAt = DateTime.Now,
                         TableNumber = tableId,
-                        Id_ReservationStatus = 4
+                        Id_ReservationStatus = 4 
                     };
 
                     db.TableReservations.Add(newReservation);
                     db.SaveChanges();
                 }
 
-                // Return success response as JSON
                 return Json(new { success = true, message = "Reservation request successfully made." });
             }
             catch (Exception ex)
@@ -49,6 +58,7 @@ namespace Rest.Controllers
                 return Json(new { success = false, message = "An error occurred: " + ex.Message });
             }
         }
+
 
 
         [HttpPost]

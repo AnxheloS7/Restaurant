@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="~/css/stylesTable.css">
 
     <style>
-        /* Add your custom styles here */
         .container {
             overflow: auto;
             margin: 20px auto;
@@ -57,26 +56,24 @@
         .container1 {
             color: black;
             display: flex;
-            justify-content: space-between; /* Distribute space between the headings */
-            align-items: center; /* Vertically align the headings */
-            gap: 20px; /* Optional: You can add a gap between items */
+            justify-content: space-between;
+            align-items: center; 
+            gap: 20px; 
         }
 
         .heading {
             font-family: Arial, sans-serif;
             padding: 10px;
-            cursor: pointer; /* Show pointer on hover */
+            cursor: pointer; 
             border-radius: 10%;
         }
 
-            /* Hover effect */
             .heading:hover {
-                background-color: #5341b4; /* Light grey when hovering */
+                background-color: #5341b4;
                 border-radius: 10%;
                 color: white;
             }
 
-        /* Active class for the clicked heading */
         .active {
             background-color: #5341b4;
             color: white;
@@ -84,7 +81,7 @@
 
         @@media screen and (max-width: 720px) {
     .container1 h3 {
-        font-size: 18px; /* Reduced font size */
+        font-size: 18px; 
     }
 }
 
@@ -93,12 +90,7 @@
 
 
 <body style="background-color: white;">
-    @*<header>
-            <div class="user-info">
-
-            </div>
-        </header>*@
-
+   
     <div class="container container1">
         <h3 class="heading active" id="bookings">Booking Requests</h3>
         <h3 class="heading" id="accepted">Accepted Reservations</h3>
@@ -108,7 +100,6 @@
     <div class="container">
         <h2>Bookings</h2>
         <table id="bookingRequestsTable">
-            <!-- Booking Requests Table -->
             <thead>
                 <tr>
                     <th>Nr</th>
@@ -158,26 +149,19 @@
 
 <script src="~/js/scriptTable.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- Include Toastr CSS and JS for notifications -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
 
     $(document).ready(function () {
-        // Hide the accepted and rejected tables initially
         $('#accepted-reservations-table').hide();
         $('#rejected-reservations-table').hide();
 
-        // Add click event listeners to the headings
         $('.heading').click(function () {
-            // Remove the 'active' class from all headings
             $('.heading').removeClass('active');
 
-            // Add the 'active' class to the clicked heading
             $(this).addClass('active');
 
-            // Show/hide the appropriate table based on the clicked heading
             if ($(this).attr('id') === 'bookings') {
                 $('#bookingRequestsTable').show();
                 $('#accepted-reservations-table').hide();
@@ -198,14 +182,12 @@
         $.ajax({
             url: '/Reservation/UpdateReservationStatus',
             type: 'POST',
-            data: { id: id, status: 1 }, // status 1 for accepted
+            data: { id: id, status: 1 }, 
             success: function (response) {
                 if (response.success) {
-                    // Remove the row from the booking table
                     $('#row-' + id).remove();
 
-                    // Update the Accepted Reservations table by loading partial view
-                    updateReservationsTable(1); // 1 = Accepted status
+                    updateReservationsTable(1); 
 
                     toastr.success('Booking accepted successfully.');
                 } else {
@@ -222,14 +204,12 @@
         $.ajax({
             url: '/Reservation/UpdateReservationStatus',
             type: 'POST',
-            data: { id: id, status: 2 }, // status 2 for rejected
+            data: { id: id, status: 2 },
             success: function (response) {
                 if (response.success) {
-                    // Remove the row from the booking table
                     $('#row-' + id).remove();
 
-                    // Update the Rejected Reservations table by loading partial view
-                    updateReservationsTable(2); // 2 = Rejected status
+                    updateReservationsTable(2); 
 
                     toastr.success('Booking rejected successfully.');
                 } else {
@@ -243,7 +223,6 @@
     }
 
     function updateReservationsTable(status) {
-        // Fetch the updated reservations for either accepted or rejected bookings
         $.ajax({
             url: '/Reservation/GetUpdatedReservations',
             type: 'GET',
