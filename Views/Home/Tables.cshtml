@@ -1,5 +1,4 @@
-﻿@using Rest.Helpers;
-@{
+﻿@{
     ViewBag.Title = "Tables";
     Layout = "~/Views/_LayoutPageLogin.cshtml";
 }
@@ -90,7 +89,7 @@
     @@media (max-width: 768px) {
         .table {
             margin: 10px auto;
-            width: 90%;
+            width: 100%;
         }
     }
 </style>
@@ -126,30 +125,31 @@
             @foreach (var table in Model)
             {
                 <div class="table" data-status="@table.Status">
-                    <div class="table-number">Table @table.TableNumber</div>
-                    <div class="table-capacity">Capacity: @table.Capacity</div>
-                    <div class="table-status" id="status-@table.TableNumber">Status: @table.Status</div>
+                    <div class="table-number">Tavolina @table.TableNumber</div>
+                    <div class="table-capacity">Tavolinë për @table.Capacity Persona</div>
+                    <div class="table-status" id="status-@table.TableNumber">Statusi: @table.Status</div>
 
-                    @if (table.Status == "Free")
+                    @if (table.Status == "E lirë")
                     {
                         <form class="reservationForm" method="post" id="reservationForm-@table.TableNumber" data-table-id="@table.TableNumber">
                             <input type="hidden" name="tableId" value="@table.TableNumber" />
-                            <label for="numPeople">Number of People:</label>
+                            <label for="numPeople">Numri i personave:</label>
                             <select id="numPeople-@table.TableNumber" name="numPeople" required>
-                                <option value="1">1 Person</option>
-                                <option value="2">2 People</option>
-                                <option value="3">3 People</option>
-                                <option value="4">4 People</option>
+                                @for (int i = 1; i <= table.Capacity; i++)
+                                {
+                                    <option value="@i">@i Person@(i > 1 ? "a" : "")</option>
+                                }
                             </select>
 
-                            <label for="reservationDate">Date:</label>
+
+                            <label for="reservationDate">Data:</label>
                             <input type="date" id="reservationDate-@table.TableNumber" name="reservationDate" required />
 
-                            <label for="reservationTime">Time:</label>
+                            <label for="reservationTime">Ora:</label>
                             <input type="time" id="reservationTime-@table.TableNumber" name="reservationTime" required />
 
-                            <button type="submit" class="reserve-btn" style="text-align:center;" id="btn-@table.TableNumber">
-                                Reserve
+                            <button type="submit" class="reserve-btn" style="text-align:center; background:#ff0000;" id="btn-@table.TableNumber">
+                                Rezervo
                             </button>
                         </form>
 
@@ -177,9 +177,9 @@
 
     if (notification) {
         if (notification.Id_ReservationStatus === 1) {
-            toastr.success('Your booking has been accepted on ' + notification.Date + ' at ' + notification.Time + '.');
+            toastr.success('Rezervimi juaj u pranua në datën: ' + notification.Date + ' ora: ' + notification.Time + '.');
         } else if (notification.Id_ReservationStatus === 2) {
-            toastr.error('Your booking has been rejected on ' + notification.Date + ' at ' + notification.Time + '.');
+            toastr.error('Rezervimi juaj u refuzua në datën: ' + notification.Date + ' ora: ' + notification.Time + '.');
         }
 
         $.ajax({
@@ -216,16 +216,16 @@ $('.reservationForm').on('submit', function (e) {
                 numOfPeople.attr('disabled', true);
                 reservationDate.attr('disabled', true);
                 reservationTime.attr('disabled', true);
-                button.text('Pending'); 
+                button.text('Në pritje të përgjigjes së rezervimit'); 
                 button.attr('disabled', true); 
                 button.css('background-color', 'gray'); 
-                statusElement.text('Status: Pending'); 
+                statusElement.text('Status: Në pritje'); 
             } else {
                 toastr.error(response.message);
             }
         },
         error: function () {
-            toastr.error('An unexpected error occurred while making the reservation.');
+            toastr.error('Ndodhi një gabim në momentin e kryerjes së rezervimit.');
         }
     });
 });

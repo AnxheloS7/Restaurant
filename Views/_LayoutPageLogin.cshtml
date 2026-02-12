@@ -1,43 +1,45 @@
 ﻿<!DOCTYPE html>
 
+<style>
+    .newClass {
+        color: #ff0000;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: inherit;
+        }
+    </style>
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <header class="main-header">
+    <header class="main-header py-3 @(Session["Username"] == null ? "py-lg-5" : "")">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-3 d-flex align-items-center justify-content-center">
-                    <h1>
-                        <a class="navbar-brand" href="#">
-                            Restaurant
-                        </a>
-                    </h1>
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Left (Logo/Title) -->
+                <h1 class="m-0 flex-grow-1 text-center">
+                    
+                </h1>
+                <h1 class="m-0 flex-grow-1 text-center">
+                    <a class="newClass text-decoration-none" href="#">
+                        RESTORANT
+                    </a>
+                </h1>
+
+                <!-- Right (Username & Logout) -->
+                <div class="d-flex align-items-center ms-auto">
+                    <form id="usernameId" method="post" class="me-2 mb-0" style="padding-right: 10px;">
+                        <span id="usernameDisplay">@Session["Username"]</span>
+                    </form>
+                    <form id="logoutForm" action="@Url.Action("Logout", "Register")" method="post" class="mb-0">
+                        <button type="submit" id="logoutButton" class="btn btn-danger">Dilni</button>
+                    </form>
                 </div>
-                <div class="col-lg-9 header-bottom-wthree">
-                    <div class="d-md-flex justify-content-lg-end justify-content-center header-right">
-                        <div class="right_nav">
-                            <div style="display: flex; align-items: center;">
-                                <!-- Display the username -->
-                                <form id="usernameId" method="post" style="display: inline;">
-                                    <span id="usernameDisplay" class="mr-2">@Session["Username"]</span>
-                                </form>
-
-                                <!-- Logout form -->
-                                <form id="logoutForm" action="@Url.Action("Logout", "Register")" method="post" style="display: inline;">
-                                    <button type="submit" id="logoutButton" class="btn ml-2 wthree-link-bnr">Logout</button>
-                                </form>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </header>
+
     <div>
         @RenderBody()
     </div>

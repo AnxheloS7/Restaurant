@@ -7,7 +7,6 @@
 <html lang="zxx">
 
 <head>
-    <title>Cafe Restaurant Hotel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8" />
     <meta name="keywords" content="Cafe Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
@@ -29,21 +28,21 @@
     <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
 </head>
 <body>
-    <div class="contact-wthree pt-lg-5" id="contact">
-        <div class="container pt-md-5 pt-4">
+    <div class="contact-wthree" id="contact">
+        <div class="container">
             <div class="text-center mt-5">
-                <h4 class="w3pvt-title">Want to enjoy the best traditional food in Gjirokastra</h4>
+                <h4 class="w3pvt-title" style="color: black; font-family: Arial, Helvetica, sans-serif;">Mirësevini në restorantin tonë.</h4>
             </div>
 
             <div class="col-lg-9 header-bottom-wthree mx-auto">
                 <div class="d-flex flex-column align-items-center justify-content-center mt-4">
                     <div class="d-flex justify-content-center mb-3">
                         <button id="loginButton" type="button" class="btn wthree-link-bnr bg-transparent text-secondary"
-                                data-toggle="modal" aria-pressed="false" data-target="#exampleModal">
-                            Login
+                                data-toggle="modal" aria-pressed="false" style="border: black; border-width:thin; border-style: groove; border-block-color: black;" data-target="#exampleModal">
+                            Hyr
                         </button>
-                        <button type="button" id="registerButton" class="btn ml-3 wthree-link-bnr" data-toggle="modal" data-target="#exampleModal1">
-                            Register
+                        <button type="button" id="registerButton" class="btn ml-3 wthree-link-bnr" style="background: #ff0000;" data-toggle="modal" data-target="#exampleModal1">
+                            Regjistrohu
                         </button>
                     </div>
 
@@ -60,7 +59,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-theme2">
-                    <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hyr në llogarinë tënde</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -68,30 +67,30 @@
                 <div class="modal-body">
                     <form action="#" method="post">
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Username</label>
+                            <label for="recipient-name" class="col-form-label">Emri i përdoruesit</label>
                             <input type="text" class="form-control border" placeholder="Username" name="Name" id="recipient-name"
                                    required="">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="col-form-label">Password</label>
+                            <label for="password" class="col-form-label">Fjalëkalimi</label>
                             <input type="password" class="form-control border" placeholder="****" name="Password" id="password"
                                    required="">
                         </div>
                         <div id="loginError" style="color: red; display: none;"></div>
                         <br>
                         <div class="right-w3l">
-                            <input type="submit" class="form-control border text-white bg-theme" value="Log in">
+                            <input type="submit" style="background:#ff0000;" class="form-control border text-white bg-theme" value="Hyr">
                         </div>
 
                         <div class="row sub-w3l my-3">
                             <div class="col forgot-w3l text-right text-secondary">
-                                <a href="#" class="text-white">Forgot Password?</a>
+                                <a href="#" class="text-white">Keni harruar fjalëkalimin?</a>
                             </div>
                         </div>
                         <p class="text-center text-secondary">
-                            Don't have an account?
+                            Nuk keni një llogari?
                             <a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark font-weight-bold">
-                                Register Now
+                                Regjistrohuni
                             </a>
                         </p>
                     </form>
@@ -105,7 +104,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header bg-theme2">
-                    <h5 class="modal-title" id="exampleModalLabel1">Register</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Regjistrohu</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -113,25 +112,25 @@
                 <div class="modal-body">
                     <form action="#" method="post">
                         <div class="form-group">
-                            <label for="recipient-rname" class="col-form-label">Username</label>
+                            <label for="recipient-rname" class="col-form-label">Emri i Përdouresit</label>
                             <input type="text" class="form-control border" placeholder="john mercy" name="Name" id="recipient-rname" required="">
                         </div>
                         <div class="form-group">
                             <label for="recipient-email" class="col-form-label">Email</label>
-                            <input type="email" class="form-control border" placeholder="username@email.com" name="Email" id="recipient-email" required="">
+                            <input type="email" class="form-control border" placeholder="perdoruesi@email.al" name="Email" id="recipient-email" required="">
                         </div>
                         <div class="form-group">
-                            <label for="password1" class="col-form-label">Password</label>
+                            <label for="password1" class="col-form-label">Fjalëkalimi</label>
                             <input type="password" class="form-control border" placeholder="****" name="Password" id="password1" required="">
                         </div>
                         <div class="form-group">
-                            <label for="password2" class="col-form-label">Confirm Password</label>
+                            <label for="password2" class="col-form-label">Konfirmo fjalëkalimin</label>
                             <input type="password" class="form-control border" placeholder="****" name="ConfirmPassword" id="password2" required="">
                         </div>
                         <div id="RegisterError" style="color: red; display: none;"></div>
                         <br>
                         <div class="right-w3l">
-                            <input type="submit" class="form-control bg-theme text-white" value="Register">
+                            <input type="submit" class="form-control bg-theme text-white" style="background:#ff0000;" value="Regjistrohu">
                         </div>
                     </form>
                 </div>
@@ -161,7 +160,7 @@
                 data: formData,
                 success: function (response) {
                     if (response.redirect) {
-                        toastr.success('Login completed successfully!', 'Success');
+                        toastr.success('Hyrja në llogarinë tuaj u krye me sukses!', 'Success');
                         $('#exampleModal form')[0].reset();
                         $('#exampleModal').modal('hide');
                         window.location.href = response.redirectUrl;
@@ -172,7 +171,7 @@
                 },
                 error: function (error) {
                     console.log('Error: ' + error);
-                    $('#loginError').text('An error occurred. Please try again.').show();
+                    $('#loginError').text('Ndodhi një gabim. Ju lutem provoni më vonë.').show();
                 }
             });
         });
@@ -196,18 +195,18 @@
                 data: formData,
                 success: function (response) {
                     if (response.redirect) {
-                        toastr.success('Registration completed successfully!', 'Success');
+                        toastr.success('Regjistrimi u krye me sukses!', 'Success');
                         $('#exampleModal1 form')[0].reset();
                         $('#exampleModal1').modal('hide');
                     } else {
                         if (response.message === "Passwords do not match") {
                             $('#exampleModal1 form')[0].reset();
                             $('#exampleModal1').modal('hide');
-                            toastr.error('Passwords do not match.', 'Error');
+                            toastr.error('Fjalëkalimet nuk janë të njëjta ju lutem provoni përsëri regjistrimin.', 'Error');
                         } else if (response.message === "Username already exists") {
                             $('#exampleModal1 form')[0].reset();
                             $('#exampleModal1').modal('hide');
-                            toastr.error('Username already exists.', 'Error');
+                            toastr.error('Emri i vendosur i përdoruesit ekziston. Ju lutem përzgjidhni një emër tjetër.', 'Error');
                         } else {
                             $('#exampleModal1 form')[0].reset();
                             $('#exampleModal1').modal('hide');
@@ -217,7 +216,7 @@
                 },
                 error: function (error) {
                     console.log('Error: ' + error);
-                    $('#RegisterError').text('An error occurred. Please try again.').show();
+                    $('#RegisterError').text('Ndodhi një gabim.Ju lutem provoni më vonë.').show();
                 }
             })
 

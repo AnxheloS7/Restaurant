@@ -11,7 +11,6 @@ namespace Rest.Controllers
     {
         RestorantEntities1 hotel = new RestorantEntities1();
 
-        // GET: Home
         public ActionResult Index()
         {
             return View();
@@ -49,7 +48,6 @@ namespace Rest.Controllers
         {
             using (var context = new RestorantEntities1())
             {
-                // Fetch the table reservation data
 
                 var reservations = context.TableReservations
                 .Include("User")
@@ -57,7 +55,6 @@ namespace Rest.Controllers
                 .Include("ReservateStatu")
                 .ToList();
 
-                // Pass the data to the view
                 return View(reservations);
             }
         }

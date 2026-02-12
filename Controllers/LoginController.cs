@@ -13,27 +13,24 @@ namespace Rest.Controllers
         RestorantEntities1 hotel = new RestorantEntities1();
         public JsonResult Login(string Username, string Password)
         {
-            string encryptedPassword = EncryptPassword(Password); // Implement your encryption method
+            string encryptedPassword = EncryptPassword(Password);
 
             var user = hotel.Users.FirstOrDefault(u => u.Username == Username && u.Password == encryptedPassword);
 
             if (user != null)
             {
-                // Store user information in session
                 Session["UserId"] = user.Id_User;
                 Session["Username"] = user.Username;
 
-                // Get the latest reservation notification that hasn't been notified
                 var reservations = hotel.TableReservations
                 .Where(r => r.Id_User == user.Id_User)
-                .ToList(); // Retrieve reservations to memory
+                .ToList(); 
 
                 var latestReservation = reservations
                     .Where(r => !r.HasUserBeenNotified)
-                    .OrderByDescending(r => r.CreatedAt) // Order by the creation time
+                    .OrderByDescending(r => r.CreatedAt) 
                     .FirstOrDefault();
 
-                // Prepare notification data with date and time
                 var notification = latestReservation != null ? new
                 {
                     latestReservation.Id_ReservationTable,
@@ -42,9 +39,6 @@ namespace Rest.Controllers
                     Time = latestReservation.Reservation_Time.ToString(@"hh\:mm")
                 } : null;
 
-
-
-                // Add the notification to the session or pass it along with the JSON response
                 Session["Notification"] = notification;
 
                 string redirectUrl = user.Id_Roli == 1
@@ -54,9 +48,8 @@ namespace Rest.Controllers
                 return Json(new { redirect = true, redirectUrl, notification });
             }
 
-            return Json(new { redirect = false, message = "Invalid username or password." });
+            return Json(new { redirect = false, message = "Përdorues ose fjalëkalim i pasaktë. Ju lutem provoni përsëri." });
         }
-
 
         private string EncryptPassword(string password)
         {

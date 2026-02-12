@@ -18,8 +18,16 @@ namespace Rest.Controllers
             {
                 using (var db = new RestorantEntities1())
                 {
-                    var lowerTimeLimit = reservationTime.Subtract(TimeSpan.FromHours(1));
-                    var upperTimeLimit = reservationTime.Add(TimeSpan.FromHours(2));
+                    TimeSpan maxSqlTime = new TimeSpan(23, 59, 59);
+
+                    var lowerTimeLimit = reservationTime - TimeSpan.FromHours(1);
+                    if (lowerTimeLimit < TimeSpan.Zero)
+                        lowerTimeLimit = TimeSpan.Zero;
+
+                    var upperTimeLimit = reservationTime + TimeSpan.FromHours(2);
+                    if (upperTimeLimit > maxSqlTime)
+                        upperTimeLimit = maxSqlTime;
+
 
                     var existingReservation = db.TableReservations
                         .Where(r => r.Id_Table == tableId
@@ -31,7 +39,7 @@ namespace Rest.Controllers
 
                     if (existingReservation != null)
                     {
-                        return Json(new { success = false, message = "This time slot (within 3 hours) is already reserved for this table! Please try another table or another time of the day. Thank you!" });
+                        return Json(new { success = false, message = "Koha e përzgjedhur për rezervim në këtë tavolinë është aktualisht e rezervuar. Ju lutem provoni të rezervoni një tavolinë tjetër ose një orar tjetër për këtë tavolinë.Faleminderit." });
                     }
 
                     var newReservation = new TableReservation
@@ -50,12 +58,11 @@ namespace Rest.Controllers
                     db.SaveChanges();
                 }
 
-                return Json(new { success = true, message = "Reservation request successfully made." });
+                return Json(new { success = true, message = "Kërkesa për rezervim u dërgua me sukses. Do të njoftoheni në lidhje me përgjigjen e rezervimit." });
             }
             catch (Exception ex)
             {
-                // Handle any errors and return an error message
-                return Json(new { success = false, message = "An error occurred: " + ex.Message });
+                return Json(new { success = false, message = "Ndodhi një gabim gjatë dërgimit të rezervimit: " + ex.Message });
             }
         }
 
@@ -90,7 +97,7 @@ namespace Rest.Controllers
                 if (reservation != null)
                 {
                     reservation.Id_ReservationStatus = status;
-                    reservation.HasUserBeenNotified = false; // New column in the database to track notification
+                    reservation.HasUserBeenNotified = false;
                     restorant.SaveChanges();
 
                     return Json(new { success = true });
@@ -111,7 +118,6 @@ namespace Rest.Controllers
                                         .Where(r => r.Id_ReservationStatus == status)
                                         .ToList();
 
-            // Assuming the partial is located in Views/Shared folder
             return PartialView("~/Views/_ReservationsTablePartial.cshtml", reservations);
         }
     }

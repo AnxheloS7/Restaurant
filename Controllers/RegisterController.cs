@@ -22,7 +22,6 @@ namespace Rest.Controllers
                 return Json(new { redirect = false, message = "Username already exists" });
             }
 
-            // Save the user in the database
             var newUser = new User
             {
                 Username = Username,
@@ -51,6 +50,7 @@ namespace Rest.Controllers
         {
             // Clear session and redirect to login page
             Session.Clear();
+            Session["Username"] = null;
             return RedirectToAction("LoginForm", "Home");
         }
     }
